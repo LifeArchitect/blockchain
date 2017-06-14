@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Supply Chain Test Application</title>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body>
+  <h1>OEM</h1>
+  <br />
+  <h2>Manufacture</h2>
+  <form onsubmit="this.reset(); return false;">
+    <div class="form-group">
+      <input id="partNo_M" class="form-control" type="text" placeholder="Part No.">
+    </div>
+    <div class="form-group">
+      <input id="serialNo_M" class="form-control" type="text" placeholder="Serial No.">
+    </div>
+    <div class="form-group">
+      <input id="description_M" class="form-control" type="text-area" placeholder="Description of the part">
+    </div>
+    <div class="form-group">
+      <input id="manufacturer" type="text" class="form-control" placeholder="Manufacturer">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block" onclick="manufacture()">Manufacture</button>
+  </form>
+
+  <h2>Sell</h2>
+  <form onsubmit="this.reset(); return false;">
+    <div class="form-group">
+      <input id="serialNo_S" class="form-control" type="text" placeholder="Serial No.">
+    </div>
+    <div class="form-group">
+      <input id="seller" class="form-control" type="text" placeholder="Seller of the part">
+    </div>
+    <div class="form-group">
+      <input id="buyer" type="text" class="form-control" placeholder="Buyer of the part">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block" onclick="sell()">Sell</button>
+  </form>
+
+
+  <h2>Install</h2>
+  <form onsubmit="this.reset(); return false;">
+    <div class="form-group">
+      <input id="serialNo_I" class="form-control" type="text" placeholder="Serial No.">
+    </div>
+    <div class="form-group">
+      <input id="tailNo_I" class="form-control" type="text" placeholder="Tail No.">
+    </div>
+    <div class="form-group">
+      <input id="installer" type="text" class="form-control" placeholder="Installer">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block" onclick="install()">Install</button>
+  </form>
+
+  <h2>Loan</h2>
+  <form onsubmit="this.reset(); return false;">
+    <div class="form-group">
+      <input id="serialNo_L" class="form-control" type="text" placeholder="Serial No.">
+    </div>
+    <div class="form-group">
+      <input id="owner" class="form-control" type="text" placeholder="Owner of the part">
+    </div>
+    <div class="form-group">
+      <input id="borrower" type="text" class="form-control" placeholder="Borrower of the part">
+    </div>
+    <div class="form-group">
+      <input id="timeToReturn" type="datetime-local" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block" onclick="loan()">Loan</button>
+  </form>
+
+  <h2>Exchange</h2>
+  <form onsubmit="this.reset(); return false;">
+    <div class="form-group">
+      <input id="serialNo1_E" class="form-control" type="text" placeholder="Serial No. (to be exchanged)">
+    </div>
+    <div class="form-group">
+      <input id="serialNo2_E" class="form-control" type="text" placeholder="Serial No. (to exchange for)">
+    </div>
+    <div class="form-group">
+      <input id="from" type="text" class="form-control" placeholder="Owner of the part">
+    </div>
+    <div class="form-group">
+      <input id="to" type="text" class="form-control" placeholder="Owner of the exchanged part">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block" onclick="exchange()">Exchange</button>
+  </form>
+
+  <h1>MRO</h1>
+  <form onsubmit="this.reset(); return false;">
+    <div class="form-group">
+      <input type="text" class="form-control" id="serialNo_MRO" placeholder="Serial No.">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" id="actor_MRO" placeholder="Personel">
+    </div>
+    <div class="form-group">
+      <select class="form-control" id="mro-control">
+        <option>Overhaul</option>
+        <option>Repair</option>
+        <option>Inspect</option>
+        <option>Remove</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block" onclick="mro_action()">Enter</button>
+  </form>
+
+  <h2>Search history of part</h2>
+  <form onsubmit="this.reset(); return false;">
+    <div class="form-group">
+      <input id="partIDsearch" class="form-control" type="text" placeholder="Part Serial No.">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block" onclick="search_part_history()">Search</button>
+  </form>
+
+  <table id='partHistory' class="table">
+  </table>
+</body>
+</html>

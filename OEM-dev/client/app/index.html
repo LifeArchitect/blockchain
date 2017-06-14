@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>OEM Client Application</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="app.js"></script>
+  <style src="stylesheets/app.css"></style>
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <img id="logo" src="https://www.aviationcv.com/aviation-blog/wp-content/uploads/2016/06/Boeing-Logo.svg.png">
+      </div>
+
+      <form class="navbar-form navbar-right" onsubmit="return false;">
+        <div class="form-group pull-right">
+          <input id="partIDsearch" type="text" class="form-control" placeholder="Part Serial No.">
+        </div>
+        <button type="submit" class="btn btn-default pull-right" onclick="search_part_history()">Search Blockchain</button>
+      </form>
+
+      <form class="navbar-form navbar-center" onsubmit="return false;">
+        <div class="form-group pull-right">
+          <input id="partIDsearchDb" type="text" class="form-control" placeholder="Part Serial No.">
+        </div>
+        <button type="submit" class="btn btn-default pull-right" onclick="search_part_from_db()">Search part DB</button>
+      </form>
+
+      <form class="navbar-form navbar-left" onsubmit="return false;">
+        <div class="form-group pull-right">
+          <input id="partIDsearchHistoryDb" type="text" class="form-control" placeholder="Part Serial No.">
+        </div>
+        <button type="submit" class="btn btn-default pull-right" onclick="search_part_history_from_db()">Search Part History DB</button>
+      </form>
+
+    </div>
+  </nav>
+
+  <div id="header"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-5 justify-content-center">
+          
+          <h2>Manufacture</h2>
+          <form onsubmit="this.reset(); return false;">
+            <div class="form-group">
+              <input id="partNo_M" class="form-control" type="text" placeholder="Part No.">
+            </div>
+            <div class="form-group">
+              <input id="serialNo_M" class="form-control" type="text" placeholder="Serial No.">
+            </div>
+            <div class="form-group">
+              <input id="description_M" class="form-control" type="text-area" placeholder="Description of the part">
+            </div>
+            <div class="form-group">
+              <input id="manufacturer" type="text" class="form-control" placeholder="Manufacturer">
+            </div>
+            <div class="form-group">
+              <input id="cost" type="text" class="form-control" placeholder="Cost">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" onclick="manufacture()">Manufacture</button>
+          </form>
+
+          <h2>Sell</h2>
+          <form onsubmit="this.reset(); return false;">
+            <div class="form-group">
+              <input id="serialNo_S" class="form-control" type="text" placeholder="Serial No.">
+            </div>
+            <div class="form-group">
+              <input id="seller" class="form-control" type="text" placeholder="Seller of the part">
+            </div>
+            <div class="form-group">
+              <input id="buyer" type="text" class="form-control" placeholder="Buyer of the part">
+            </div>
+            <div class="form-group">
+              <input id="price" type="text" class="form-control" placeholder="Selling Price">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" onclick="sell()">Sell</button>
+          </form>
+
+          <h2>Install</h2>
+          <form onsubmit="this.reset(); return false;">
+            <div class="form-group">
+              <input id="serialNo_I" class="form-control" type="text" placeholder="Serial No.">
+            </div>
+            <div class="form-group">
+              <input id="tailNo_I" class="form-control" type="text" placeholder="Tail No.">
+            </div>
+            <div class="form-group">
+              <input id="installer" type="text" class="form-control" placeholder="Installer">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" onclick="install()">Install</button>
+          </form>
+
+          <h2>Loan</h2>
+          <form onsubmit="this.reset(); return false;">
+            <div class="form-group">
+              <input id="serialNo_L" class="form-control" type="text" placeholder="Serial No.">
+            </div>
+            <div class="form-group">
+              <input id="owner" class="form-control" type="text" placeholder="Owner of the part">
+            </div>
+            <div class="form-group">
+              <input id="borrower" type="text" class="form-control" placeholder="Borrower of the part">
+            </div>
+            <div class="form-group">
+              <input id="timeToReturn" type="datetime-local" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" onclick="loan()">Loan</button>
+          </form>
+
+          <h2>Exchange</h2>
+          <form onsubmit="this.reset(); return false;">
+            <div class="form-group">
+              <input id="serialNo1_E" class="form-control" type="text" placeholder="Serial No. (to be exchanged)">
+            </div>
+            <div class="form-group">
+              <input id="serialNo2_E" class="form-control" type="text" placeholder="Serial No. (to exchange for)">
+            </div>
+            <div class="form-group">
+              <input id="from" type="text" class="form-control" placeholder="Owner of the part">
+            </div>
+            <div class="form-group">
+              <input id="to" type="text" class="form-control" placeholder="Owner of the exchanged part">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" onclick="exchange()">Exchange</button>
+          </form>
+
+        </div>
+        <div class="col-sm-7 justify-content-center">
+          <div class="search_results">
+            <table id='partHistory' class="table table-bordered">
+            </table>
+          </div>
+        </div>
+
+        <div class="col-sm-7 justify-content-center">
+          <div class="search_results_db">
+            <table id='partCheckDb' class="table table-bordered">
+            </table>
+          </div>
+        </div>
+
+        <div class="col-sm-7 justify-content-center">
+          <div class="search_part_transactions_db">
+            <table id='partHistoryDb' class="table table-bordered">
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+</body>
+</html>
